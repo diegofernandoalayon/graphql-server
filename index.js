@@ -17,7 +17,6 @@ const persons = [
   },
   {
     name: 'pedro',
-    phone: '1233 3344',
     street: 'calle 5 4-23',
     city: 'suya',
     id: '12348765845'
@@ -35,13 +34,18 @@ const typeDefs = gql`
   type Query {
     personCount: Int!
     allPersons: [Person]!
+    findPerson(name: String!): Person
   }
 `
 
 const resolvers = {
   Query: {
     personCount: () => persons.length,
-    allPersons: () => persons
+    allPersons: () => persons,
+    findPerson: (root, args) => {
+      const {name} = args
+      return persons.find(person => person.name === name)
+    }
   }
 }
 

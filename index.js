@@ -1,27 +1,28 @@
 import { ApolloServer, UserInputError, gql } from 'apollo-server'
 import {v1 as uuid} from 'uuid'
-const persons = [
-  {
-    name: 'dfar',
-    phone: '3333 3333',
-    street: 'calle 3 4-23',
-    city: 'Mia',
-    id: '123412341234'
-  },
-  {
-    name: 'aoeuaoe',
-    phone: '3122332 3333',
-    street: 'calle 4 4-23',
-    city: 'tuya',
-    id: '63456345634'
-  },
-  {
-    name: 'pedro',
-    street: 'calle 5 4-23',
-    city: 'suya',
-    id: '12348765845'
-  },
-]
+import axios from 'axios'
+// const persons = [
+//   {
+//     name: 'dfar',
+//     phone: '3333 3333',
+//     street: 'calle 3 4-23',
+//     city: 'Mia',
+//     id: '123412341234'
+//   },
+//   {
+//     name: 'aoeuaoe',
+//     phone: '3122332 3333',
+//     street: 'calle 4 4-23',
+//     city: 'tuya',
+//     id: '63456345634'
+//   },
+//   {
+//     name: 'pedro',
+//     street: 'calle 5 4-23',
+//     city: 'suya',
+//     id: '12348765845'
+//   },
+// ]
 const typeDefs = gql`
   enum YesNo {
     YES
@@ -63,13 +64,14 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     personCount: () => persons.length,
-    allPersons: (root, args) => {
-
-      if(!args.phone) return persons
+    allPersons: async (root, args) => {
+      const {data: personsFromRestApi} = await axios.get('http://localhost:3000/persons')
+      console.log(personsFromRestApi)
+      if(!args.phone) return personsFromRestApi
 
       const byPhone = person => args.phone === "YES" ? person.phone : !person.phone
 
-      return persons.filter(byPhone)
+      return personsFromRestApi.filter(byPhone)
       },
     findPerson: (root, args) => {
       const {name} = args

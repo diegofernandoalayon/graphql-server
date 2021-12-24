@@ -1,28 +1,28 @@
 import { ApolloServer, UserInputError, gql } from 'apollo-server'
 import {v1 as uuid} from 'uuid'
 import axios from 'axios'
-// const persons = [
-//   {
-//     name: 'dfar',
-//     phone: '3333 3333',
-//     street: 'calle 3 4-23',
-//     city: 'Mia',
-//     id: '123412341234'
-//   },
-//   {
-//     name: 'aoeuaoe',
-//     phone: '3122332 3333',
-//     street: 'calle 4 4-23',
-//     city: 'tuya',
-//     id: '63456345634'
-//   },
-//   {
-//     name: 'pedro',
-//     street: 'calle 5 4-23',
-//     city: 'suya',
-//     id: '12348765845'
-//   },
-// ]
+const persons = [
+  {
+    name: 'dfar',
+    phone: '3333 3333',
+    street: 'calle 3 4-23',
+    city: 'Mia',
+    id: '123412341234'
+  },
+  {
+    name: 'aoeuaoe',
+    phone: '3122332 3333',
+    street: 'calle 4 4-23',
+    city: 'tuya',
+    id: '63456345634'
+  },
+  {
+    name: 'pedro',
+    street: 'calle 5 4-23',
+    city: 'suya',
+    id: '12348765845'
+  },
+]
 const typeDefs = gql`
   enum YesNo {
     YES

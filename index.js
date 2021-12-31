@@ -65,13 +65,12 @@ const resolvers = {
   Query: {
     personCount: () => persons.length,
     allPersons: async (root, args) => {
-      const {data: personsFromRestApi} = await axios.get('http://localhost:3000/persons')
-      console.log(personsFromRestApi)
-      if(!args.phone) return personsFromRestApi
+      
+      if(!args.phone) return persons
 
       const byPhone = person => args.phone === "YES" ? person.phone : !person.phone
 
-      return personsFromRestApi.filter(byPhone)
+      return persons.filter(byPhone)
       },
     findPerson: (root, args) => {
       const {name} = args

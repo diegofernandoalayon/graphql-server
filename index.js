@@ -56,7 +56,7 @@ const resolvers = {
   Mutation: {
     addPerson: (root, args) => {
       const person = new Person({ ...args})
-      return Person.save()
+      return person.save()
     },
     editNumber: async (root, args) => {
       const person = await Person.findOne({name: args.name})

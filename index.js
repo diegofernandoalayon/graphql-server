@@ -50,7 +50,8 @@ const resolvers = {
       },
     findPerson: (root, args) => {
       const {name} = args
-      return Person.findOne({ name })
+      console.log(name)
+      return Person.findOne({ name}).exec()
     }
   },
   Mutation: {

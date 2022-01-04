@@ -51,6 +51,10 @@ const typeDefs = gql`
     createUser(
       username: String!
     ): User
+    login(
+      username: String!
+      password: String!
+    ): Token
   }
 `
 

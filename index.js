@@ -34,6 +34,7 @@ const typeDefs = gql`
     personCount: Int!
     allPersons(phone: YesNo): [Person]!
     findPerson(name: String!): Person
+    me: User
   }
 
   type Mutation {

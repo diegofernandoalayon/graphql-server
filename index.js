@@ -6,7 +6,8 @@ import Person from './models/person.js'
 import User from './models/user.js'
 import jwt from 'jsonwebtoken'
 
-const jwtSecret = process.JWT_SECRET
+const {JWT_SECRET} = process.env
+console.log(JWT_SECRET)
 const typeDefs = gql`
   enum YesNo {
     YES

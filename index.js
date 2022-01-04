@@ -108,6 +108,21 @@ const resolvers = {
           invalidArgs: args
         })
       })
+    },
+    login: async (root, args) => {
+      const user = await User.findOne({ username: args.username })
+
+      if(!user || args.password !== 'secret') {
+        throw new UserInputError('wrong credentials')
+      }
+
+      const userForToken = {
+        username: user.username,
+        id: user._id
+      }
+      return {
+        value: jwt.sign(userForToken, JWT_SECRET)
+      }
     }
   },
   Person: {

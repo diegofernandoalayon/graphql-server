@@ -24,6 +24,13 @@ const schema = new mongoose.Schema({
   },
 
 })
-schema.plugin(uniqueValidator)
+schema.set('toJSON',{
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
+// schema.plugin(uniqueValidator)
 
 export default mongoose.model('Person', schema)

@@ -143,9 +143,11 @@ const server = new ApolloServer({
     const auth = req ? req.header.authorization : null
     if (auth && auth.toLowerCase().startsWith('bearer ')){
       const token = auth.substring(7)
-      const decodedToken = jwt.verify(token)
+      const {id} = jwt.verify(token, JWT_SECRET)
+      const currentUser = await (await User.findById(id)).populate('friends')
+      return { currentUser }
     }
-  }
+  },
 })
 
 server.listen().then(({url}) => {

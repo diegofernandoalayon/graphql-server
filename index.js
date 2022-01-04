@@ -27,6 +27,9 @@ const typeDefs = gql`
     id: ID!
   }
 
+  type Token {
+    value: String!
+  }
   type Query {
     personCount: Int!
     allPersons(phone: YesNo): [Person]!

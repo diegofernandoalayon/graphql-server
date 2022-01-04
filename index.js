@@ -3,7 +3,7 @@ import { ApolloServer, UserInputError, gql } from 'apollo-server'
 // import {v1 as uuid} from 'uuid'
 import './db.js'
 import Person from './models/person.js'
-
+import User from './models/user.js'
 const typeDefs = gql`
   enum YesNo {
     YES
@@ -19,6 +19,11 @@ const typeDefs = gql`
     phone: String
     street: String!
     address: Address!
+    id: ID!
+  }
+  type User {
+    username: String!
+    friends: [Person]!
     id: ID!
   }
 

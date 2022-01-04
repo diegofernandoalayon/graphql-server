@@ -48,6 +48,9 @@ const typeDefs = gql`
       name: String!
       phone: String!
     ): Person
+    createUser(
+      username: String!
+    ): User
   }
 `
 

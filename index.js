@@ -7,7 +7,6 @@ import User from './models/user.js'
 import jwt from 'jsonwebtoken'
 
 const {JWT_SECRET} = process.env
-console.log(JWT_SECRET)
 const typeDefs = gql`
   enum YesNo {
     YES
@@ -100,6 +99,15 @@ const resolvers = {
         })
       }
       return person
+    },
+    createUser: (root, args) => {
+      const user = new User({username: args.username})
+
+      return user.save().catch(error => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        })
+      })
     }
   },
   Person: {

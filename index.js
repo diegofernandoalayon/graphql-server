@@ -73,6 +73,9 @@ const resolvers = {
     findPerson: (root, args) => {
       const {name} = args
       return Person.findOne({ name}).exec()
+    },
+    me: (root, args, context) => {
+      return context.currentUser
     }
   },
   Mutation: {
@@ -140,7 +143,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: async ({req}) => {
-    const auth = req ? req.header.authorization : null
+    const auth = req ? req.headers.authorization : null
     if (auth && auth.toLowerCase().startsWith('bearer ')){
       const token = auth.substring(7)
       const {id} = jwt.verify(token, JWT_SECRET)

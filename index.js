@@ -133,6 +133,21 @@ const resolvers = {
       return {
         value: jwt.sign(userForToken, JWT_SECRET)
       }
+    },
+    addAsFriend: async (root, args, {currentUser}) => {
+      if (!currentUser) throw new AuthenticationError('not authenticated')
+
+      const person = await Person.findOne({ name: args.name })
+      const nonFriendlyAlready = person => !currentUser.friends
+        .map(person => person._id)
+        .includes(person._id)
+
+      if (nonFriendlyAlready(person)){
+        currentUser.friends = currentUser.friends.concat(person)
+        await currentUser.save()
+      }
+
+      return currentUser
     }
   },
   Person: {

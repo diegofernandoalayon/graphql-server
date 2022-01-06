@@ -58,6 +58,9 @@ const typeDefs = gql`
       username: String!
       password: String!
     ): Token
+    addAsFriend(
+      name: String!
+    ): User
   }
 `
 
